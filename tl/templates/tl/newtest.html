@@ -1,0 +1,43 @@
+
+{% load staticfiles %}
+
+<link rel="stylesheet" href="{% static 'tl/bootstrap.css' %}" />
+<link rel="stylesheet" href="{% static 'tl/style.css' %}" />
+
+
+{% block content %}
+
+<html lang="en">
+	<head>
+	    <title>CVS Test & Learn Create New Test</title>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="row"> 
+				<div class="col-md-2">
+					<img src="/static/tl/images/cvs_health_reg_img.png" class="img-responsive">
+				</div> 		
+				<div class="col-md-10 text-right text-uppercase">
+					<h1>Test And Learn</h1>
+					<h4>Data Management</h4>
+				</div>		
+			</div>
+
+		    <h2>New Test Form</h2>
+			<div class="row">
+				<div class="col-md-12">
+					<hr>
+				</div>	
+			</div>
+		    <form method="POST" class="post-form">{% csrf_token %}
+		    	<h3>Test Info</h3>
+		        {{ test_form }}
+		        {{ wavedate_form }}
+		        <button type="submit" class="save btn btn-default">Save</button>
+		    </form>
+		</div>
+	</body>
+
+{% endblock %}
+
+
