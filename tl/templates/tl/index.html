@@ -1,0 +1,31 @@
+
+{% extends 'tl/base.html' %}
+
+{% block content %}
+
+<div class="jumbotron">
+  <h1>Hello, world!</h1>
+  <p>...</p>
+  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+</div>
+
+
+</div>	
+<div class="row">
+	<div class="col-md-3">
+		<a class="btn btn-default" href="http://localhost:8000/tl/newtest/" role="button"> Create a New Test</a>
+	</div>
+	<div class="col-md-9">
+		<p>Informational paragraph</p>
+	</div>	
+</div>
+
+<h3> Existing Tests </h3>
+
+<ul>
+{% for test in test_list %}
+    <li><a href='{% url "tl:detail" test.pk %}'>{{ test.test_name }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}

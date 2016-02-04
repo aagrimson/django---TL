@@ -1,0 +1,15 @@
+
+{% extends 'tl/base.html' %}
+
+
+{% block content %}
+
+<a class="btn btn-default" href="{% url 'tl:update' pk=test.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+
+
+<p>{{ test.test_no }}</p>
+<p>{{ test.test_name }}</p>
+<p>{{ test.sponsor }}</p>
+
+
+{% endblock %}

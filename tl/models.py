@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+from django.utils.encoding import python_2_unicode_compatible
 
 from django.db import models
 
@@ -39,6 +40,8 @@ class Test(models.Model):
     success_value	= models.IntegerField(default=0)
     test_type = models.CharField(max_length=50, choices=TEST_TYPE_CHOICES)
 
+    def __unicode__(self):
+        return unicode(self.test_no)
 
 
 
@@ -50,7 +53,6 @@ class Store(models.Model):
 
 
 
-
 class WaveDate(models.Model):
     test_no = models.IntegerField()
     wave_no = models.IntegerField()
@@ -59,6 +61,7 @@ class WaveDate(models.Model):
     pre_end = models.DateField()
     post_start = models.DateField()
     post_end = models.DateField()
+
 
 
 class Product(models.Model):

@@ -1,0 +1,16 @@
+{% extends 'tl/base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+<form enctype="multipart/form-data" method="POST" class="post-form"> {% csrf_token %}
+
+
+<p>{{ form|crispy }}</p>
+
+	<button type="submit" class="save btn btn-default"> Save </button>
+
+</form>
+
+{% endblock %}
