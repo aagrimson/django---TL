@@ -12,20 +12,29 @@
 
 </div>	
 <div class="row">
-	<div class="col-md-3">
-		<a class="btn btn-default" href="http://localhost:8000/tl/newtest/" role="button"> Create a New Test</a>
+
+	<div class="col-md-6">
+		<a class="btn btn-large btn-default" href="http://localhost:8000/tl/newtest/" role="button"> 
+			<span class="glyphicon glyphicon-plus" aria-hidden="true" style="font-size:30px"> </span>
+		</a>
 	</div>
-	<div class="col-md-9">
+
+	<div class="col-md-6">
 		<p>Informational paragraph</p>
 	</div>	
 </div>
 
-<h3> Existing Tests </h3>
+<div class="row">
+	<div class="col-md-6" left-align=True>
+	<h3> Current Tests </h3>
+	
+	{% for test in test_list %}
+	    <li><a href='{% url "tl:detail" test.pk %}'> {{ test.test_no }}        {{ test.test_name }} </a></li>
+	{% endfor %}
+	</div>
+</div>
 
-<ul>
-{% for test in test_list %}
-    <li><a href='{% url "tl:detail" test.pk %}'>{{ test.test_name }}</a></li>
-{% endfor %}
-</ul>
 
 {% endblock %}
+
+

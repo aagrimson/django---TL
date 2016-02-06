@@ -29,6 +29,7 @@ class IndexView(ListView):
 
 def DetailView(request, pk):
     test = get_object_or_404(Test, pk=pk)
+    #form = TestForm(instance=test)
     return render(request, 'tl/detail.html', {'test': test})
 
 
@@ -40,15 +41,21 @@ def DetailView(request, pk):
 
 def UpdateView(request, pk):
     test = get_object_or_404(Test, pk=pk)
+    product = get_object_or_404(Product, test_no=pk)
     if request.method == 'POST':
-        form = TestForm(request.POST, instance=test)
-        if form.is_valid():
-            test = form.save()
+        test_form = TestForm(request.POST, instance=test)
+        product_form = ProductForm(request.POST, instance=product)
+
+        if test_form.is_valid() and product_form.is_valid():
+            test = test_form.save()
             test.save()
-            #return redirect('tl/detail', pk=test.pk)
+
+            product = product_form.save()
+            product.save()
+            return redirect('/tl/', pk=test.pk)
     else:
         form = TestForm(instance=test)
-    return render(request, 'tl/edit.html', {'form': form})
+    return render(request, 'tl/edit.html', {'test_form': test_form})
 
 
 
@@ -67,23 +74,52 @@ def newtest(request):
             wave.test_no = test.test_no
             wave.save()
 
-            super_category_list = product_form.cleaned_data['super_category']
-            for i in super_category_list:
+            # Tier 1 Proudcts
+            super_category_list1 = product_form.cleaned_data['super_category_tier1']
+            for i in super_category_list1:
                 p1 = Product(test_no=test.test_no, product_no=i, product_level_no=2,product_tier=1, group_no=1)
                 p1.save()
 
-            category = product_form.cleaned_data['category']
+            category = product_form.cleaned_data['category_tier1']
             p2 = Product(test_no=test.test_no, product_no=category, product_level_no=3,product_tier=1, group_no=1)
             p2.save()
 
-            sub_category = product_form.cleaned_data['sub_category']
+            sub_category = product_form.cleaned_data['sub_category_tier1']
             p3 = Product(test_no=test.test_no, product_no=sub_category, product_level_no=4,product_tier=1, group_no=1)
             p3.save()
 
-            segment = product_form.cleaned_data['segment']
+            segment = product_form.cleaned_data['segment_tier1']
             p4 = Product(test_no=test.test_no, product_no=segment, product_level_no=5,product_tier=1, group_no=1)
             p4.save()
 
+            sku = product_form.cleaned_data['sku_tier1']
+            p5 = Product(test_no=test.test_no, product_no=sku, product_level_no=7,product_tier=1, group_no=1)
+            p5.save()
+
+            # Tier 2 Proudcts
+            super_category_list2 = product_form.cleaned_data['super_category_tier2']
+            for i in super_category_list1:
+                p1 = Product(test_no=test.test_no, product_no=i, product_level_no=2,product_tier=2, group_no=i)
+                p1.save()
+
+            category = product_form.cleaned_data['category_tier2']
+            p2 = Product(test_no=test.test_no, product_no=category, product_level_no=3,product_tier=2, group_no=category)
+            p2.save()
+
+            sub_category = product_form.cleaned_data['sub_category_tier2']
+            p3 = Product(test_no=test.test_no, product_no=sub_category, product_level_no=4,product_tier=2, group_no=sub_category)
+            p3.save()
+
+            segment = product_form.cleaned_data['segment_tier2']
+            p4 = Product(test_no=test.test_no, product_no=segment, product_level_no=5,product_tier=2, group_no=segment)
+            p4.save()
+
+            sku = product_form.cleaned_data['sku_tier2']
+            p5 = Product(test_no=test.test_no, product_no=sku, product_level_no=7,product_tier=2, group_no=sku)
+            p5.save()
+
+
+            # Load store list
             store_list = store_form.cleaned_data['store_list']
             data = csv.DictReader(store_list)
             for row in data:

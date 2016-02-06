@@ -10,16 +10,34 @@
 <div class="row">
 	<div class="col-md-4">	
   	<h4></h4>
-  		<h4>Test Parameters</h4>
+  		<h3>Test Parameters</h3>
 		{{ test_form|crispy}}
 		<br></br>
-	  	<h4>Dates</h4>
+	  	<h3>Dates</h3>
 		{{ wavedate_form|crispy}}
 		<br></br>
-	 	<h4>Products</h4>
-		{{ product_form|crispy}}
+	 	<h3>Products</h3>
+	 	<h4>Tier 1</h4>
+
+		{{ product_form.super_category_tier1|as_crispy_field}}
+		{{ product_form.category_tier1|as_crispy_field}}
+		{{ product_form.sub_category_tier1|as_crispy_field}}
+		{{ product_form.segment_tier1|as_crispy_field}}
+		{{ product_form.sku_tier1|as_crispy_field}}
+		{{ product_form.group_tier1|as_crispy_field}}
+
 		<br></br>
-	 	<h4>Stores</h4>
+
+	 	<h4>Tier 2</h4>
+
+		{{ product_form.super_category_tier2|as_crispy_field}}
+		{{ product_form.category_tier2|as_crispy_field}}
+		{{ product_form.sub_category_tier2|as_crispy_field}}
+		{{ product_form.segment_tier2|as_crispy_field}}
+		{{ product_form.sku_tier2|as_crispy_field}}
+
+		<br></br>
+	 	<h3>Stores</h3>
 		{{ store_form|crispy}}
 	</div>
 </div>

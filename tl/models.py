@@ -8,12 +8,14 @@ from django.db import models
 
 TYPE_CHOICES = (
     ('vsCntrl', 'vsCntrl'),
-    ('Other', 'Other'),
+    ('Sales', 'Sales'),
 )
 
 TEST_TYPE_CHOICES = (
     ('T&L', 'T&L'),
-    ('Other', 'Other'),
+    ('CPG', 'CPG'),
+    ('Field', 'Field'),
+
 )
 
 MERCH_GROUP_CHOICES =(
@@ -57,7 +59,7 @@ class WaveDate(models.Model):
     test_no = models.IntegerField()
     wave_no = models.IntegerField()
     wave_value = models.CharField(max_length=100)
-    pre_start = models.DateField()
+    pre_start = models.DateField("Pre Period Start Date")
     pre_end = models.DateField()
     post_start = models.DateField()
     post_end = models.DateField()

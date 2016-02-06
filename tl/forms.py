@@ -21,7 +21,8 @@ class TestForm(forms.ModelForm):
 class WaveDateForm(forms.ModelForm):
 	class Meta:
 		model = WaveDate
-		exclude = ['test_no']
+		fields = ['wave_no', 'wave_value','pre_start','pre_end','post_start','post_end']
+		wigets = {'pre_start': forms.SelectDateWidget}
 
 
 SUPER_CATEGORY_CHOICES = (
@@ -37,11 +38,18 @@ SUPER_CATEGORY_CHOICES = (
 
 
 class ProductForm(forms.Form):
-	super_category = forms.MultipleChoiceField(label='Super Category', choices=SUPER_CATEGORY_CHOICES)
-	category = forms.IntegerField(label='Category')
-	sub_category = forms.IntegerField(label='Sub Category')
-   	segment = forms.IntegerField(label='Segment')
-
+    super_category_tier1 = forms.MultipleChoiceField(widget = forms.CheckboxSelectMultiple, label='Super Category', choices=SUPER_CATEGORY_CHOICES, required=False)
+    category_tier1 = forms.IntegerField(label='Category', required=False)
+    sub_category_tier1 = forms.IntegerField(label='Sub Category', required=False)
+    segment_tier1 = forms.IntegerField(label='Segment', required=False)
+    sku_tier1 = forms.IntegerField(label = 'SKU', required=False)
+    group_tier1 = forms.BooleanField(label = 'Group Tier 1 Products', required=False)
+    
+    super_category_tier2 = forms.MultipleChoiceField(widget = forms.CheckboxSelectMultiple, label='Super Category', choices=SUPER_CATEGORY_CHOICES, required=False)
+    category_tier2 = forms.IntegerField(label='Category', required=False)
+    sub_category_tier2 = forms.IntegerField(label='Sub Category', required=False)
+    segment_tier2 = forms.IntegerField(label='Segment', required=False)
+    sku_tier2 = forms.IntegerField(label = 'SKU', required=False)
 
 class StoreForm(forms.Form):
 	store_list = forms.FileField()
