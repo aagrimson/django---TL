@@ -75,48 +75,58 @@ def newtest(request):
             wave.save()
 
             # Tier 1 Proudcts
-            super_category_list1 = product_form.cleaned_data['super_category_tier1']
-            for i in super_category_list1:
-                p1 = Product(test_no=test.test_no, product_no=i, product_level_no=2,product_tier=1, group_no=1)
-                p1.save()
+            super_category_list = product_form.cleaned_data['super_category_tier1']
+            if super_category_list:
+                for i in super_category_list:
+                    p1 = Product(test_no=test.test_no, product_no=i, product_level_no=2,product_tier=1, group_no=1)
+                    p1.save()
 
             category = product_form.cleaned_data['category_tier1']
-            p2 = Product(test_no=test.test_no, product_no=category, product_level_no=3,product_tier=1, group_no=1)
-            p2.save()
+            if category:
+                p2 = Product(test_no=test.test_no, product_no=category, product_level_no=3,product_tier=1, group_no=1)
+                p2.save()
 
             sub_category = product_form.cleaned_data['sub_category_tier1']
-            p3 = Product(test_no=test.test_no, product_no=sub_category, product_level_no=4,product_tier=1, group_no=1)
-            p3.save()
+            if sub_category:
+                p3 = Product(test_no=test.test_no, product_no=sub_category, product_level_no=4,product_tier=1, group_no=1)
+                p3.save()
 
             segment = product_form.cleaned_data['segment_tier1']
-            p4 = Product(test_no=test.test_no, product_no=segment, product_level_no=5,product_tier=1, group_no=1)
-            p4.save()
+            if segment:
+                p4 = Product(test_no=test.test_no, product_no=segment, product_level_no=5,product_tier=1, group_no=1)
+                p4.save()
 
             sku = product_form.cleaned_data['sku_tier1']
-            p5 = Product(test_no=test.test_no, product_no=sku, product_level_no=7,product_tier=1, group_no=1)
-            p5.save()
+            if sku:
+                p5 = Product(test_no=test.test_no, product_no=sku, product_level_no=7,product_tier=1, group_no=1)
+                p5.save()
 
             # Tier 2 Proudcts
-            super_category_list2 = product_form.cleaned_data['super_category_tier2']
-            for i in super_category_list1:
-                p1 = Product(test_no=test.test_no, product_no=i, product_level_no=2,product_tier=2, group_no=i)
-                p1.save()
+            super_category_list = product_form.cleaned_data['super_category_tier2']
+            if super_category_list:
+                for i in super_category_list:
+                    p1 = Product(test_no=test.test_no, product_no=i, product_level_no=2,product_tier=2, group_no=i)
+                    p1.save()
 
             category = product_form.cleaned_data['category_tier2']
-            p2 = Product(test_no=test.test_no, product_no=category, product_level_no=3,product_tier=2, group_no=category)
-            p2.save()
+            if category:
+                p2 = Product(test_no=test.test_no, product_no=category, product_level_no=3,product_tier=2, group_no=category)
+                p2.save()
 
             sub_category = product_form.cleaned_data['sub_category_tier2']
-            p3 = Product(test_no=test.test_no, product_no=sub_category, product_level_no=4,product_tier=2, group_no=sub_category)
-            p3.save()
+            if sub_category:
+                p3 = Product(test_no=test.test_no, product_no=sub_category, product_level_no=4,product_tier=2, group_no=sub_category)
+                p3.save()
 
             segment = product_form.cleaned_data['segment_tier2']
-            p4 = Product(test_no=test.test_no, product_no=segment, product_level_no=5,product_tier=2, group_no=segment)
-            p4.save()
+            if segment:
+                p4 = Product(test_no=test.test_no, product_no=segment, product_level_no=5,product_tier=2, group_no=segment)
+                p4.save()
 
             sku = product_form.cleaned_data['sku_tier2']
-            p5 = Product(test_no=test.test_no, product_no=sku, product_level_no=7,product_tier=2, group_no=sku)
-            p5.save()
+            if sku:
+                p5 = Product(test_no=test.test_no, product_no=sku, product_level_no=7,product_tier=2, group_no=sku)
+                p5.save()
 
 
             # Load store list
