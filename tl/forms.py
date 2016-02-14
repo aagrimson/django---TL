@@ -1,22 +1,27 @@
 #from django.forms import forms, ModelForm
 from django import forms
-from .models import Test, WaveDate
+from .models import Test, WaveDate, Sponsor
 
 
 
 class TestForm(forms.ModelForm):
     class Meta:
         model = Test
-        fields = ['test_no', 'type', 'test_name', 'test_desc', 'sponsor', 'merch_group', 'success_metric', 'success_desc', 'success_value', 'test_type']
+        fields = ['test_no', 'type', 'test_name', 'test_desc', 'merch_group', 'success_metric', 'success_desc', 'success_value', 'test_type']
         labels = {'test_no': 'Test Number',
                   'type': 'Test Type',
                   'test_name': 'Test Name',
                   'test_desc': 'Test Description',
-                  'sponsor': 'Sponsor',
                   'merch_group': 'Merchandise Group',
                   'success_metric': 'Success Metric',
         }
 
+class SponsorForm(forms.ModelForm):
+    class Meta:
+        model = Sponsor
+        fields = ['sponsors']
+        labels = {'sponsors': 'Sponsors',
+        }
 
 class WaveDateForm(forms.ModelForm):
 	class Meta:

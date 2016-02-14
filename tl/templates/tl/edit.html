@@ -6,11 +6,13 @@
 
 <form enctype="multipart/form-data" method="POST" class="post-form"> {% csrf_token %}
 
-
-<p>{{ test_form|crispy }}</p>
+<div class="row">
+	<div class="col-md-4">	
+		<p>{{ test_form|crispy }}</p>
 
 	<button type="submit" class="save btn btn-default"> Save </button>
-
+	</div>
+</div>
 </form>
 
 {% endblock %}

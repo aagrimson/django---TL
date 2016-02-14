@@ -5,9 +5,11 @@ import csv
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views.generic import UpdateView, DetailView, ListView
+from django.db import connection
+
 
 from .models import Test, WaveDate, Product, Store
-from .forms import TestForm, WaveDateForm, ProductForm, StoreForm
+from .forms import TestForm, WaveDateForm, ProductForm, StoreForm, SponsorForm
 
 
 # Create your views here.
@@ -20,11 +22,6 @@ def home(request):
 class IndexView(ListView):
     template_name = 'tl/index.html'
     model = Test
-
-
-# class DetailView(DetailView):
-#     model = Test
-#     template_name = 'tl/detail.html'
 
 
 def DetailView(request, pk):
@@ -41,20 +38,14 @@ def DetailView(request, pk):
 
 def UpdateView(request, pk):
     test = get_object_or_404(Test, pk=pk)
-    product = get_object_or_404(Product, test_no=pk)
     if request.method == 'POST':
         test_form = TestForm(request.POST, instance=test)
-        product_form = ProductForm(request.POST, instance=product)
 
-        if test_form.is_valid() and product_form.is_valid():
+        if test_form.is_valid():
             test = test_form.save()
-            test.save()
-
-            product = product_form.save()
-            product.save()
             return redirect('/tl/', pk=test.pk)
     else:
-        form = TestForm(instance=test)
+        test_form = TestForm(instance=test)
     return render(request, 'tl/edit.html', {'test_form': test_form})
 
 
@@ -62,13 +53,18 @@ def UpdateView(request, pk):
 def newtest(request):
     if request.method == 'POST':
         test_form = TestForm(request.POST)
+        sponsor_form = SponsorForm(request.POST)
         wavedate_form = WaveDateForm(request.POST)
         product_form = ProductForm(request.POST)
         store_form = StoreForm(request.POST, request.FILES) 
 
-        if test_form.is_valid() and wavedate_form.is_valid() and product_form.is_valid() and store_form.is_valid():
+        if test_form.is_valid() and wavedate_form.is_valid() and product_form.is_valid() and store_form.is_valid() and sponsor_form.is_valid():
             test = test_form.save()
             test.save()
+
+            sponsor = sponsor_form.save(commit=False)
+            sponsor.test_no = test.test_no
+            sponsor.save()
 
             wave = wavedate_form.save(commit=False)
             wave.test_no = test.test_no
@@ -137,11 +133,28 @@ def newtest(request):
                 test_no=test.test_no,
                 location_id=row['location_id'],
                 test_store=row['test_store'],
-                pair=row['pair'])
+                pair=row['pair'],
+                wave_no=row['wave_no'])
     else:
         test_form = TestForm()
         wavedate_form = WaveDateForm()
         product_form = ProductForm()
         store_form = StoreForm() 
+        sponsor_form = SponsorForm() 
 
-    return render(request, 'tl/newtest.html', {'test_form': test_form, 'wavedate_form': wavedate_form, 'product_form': product_form, 'store_form': store_form})
+    return render(request, 'tl/newtest.html', {'test_form': test_form, 
+                                               'wavedate_form': wavedate_form, 
+                                               'product_form': product_form, 
+                                               'store_form': store_form,
+                                               'sponsor_form': sponsor_form,
+                                               })
+
+
+def QueryView(request):
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT location_key, SUM(spend) AS total_spend FROM item_fact_sample GROUP BY 1")
+
+    context = cursor.fetchall()
+
+    return render(request, 'tl/query.html', {'context': context})

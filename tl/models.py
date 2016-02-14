@@ -35,7 +35,6 @@ class Test(models.Model):
     type = models.CharField(max_length=50, choices=TYPE_CHOICES)
     test_name = models.CharField(max_length=100)
     test_desc = models.CharField(max_length=250)	
-    sponsor = models.CharField(max_length=50)
     merch_group = models.CharField(max_length=50, choices=MERCH_GROUP_CHOICES)
     success_metric = models.CharField(max_length=50, choices=SUCCESS_METRIC_CHOICES)
     success_desc = models.CharField(max_length=100)
@@ -45,6 +44,10 @@ class Test(models.Model):
     def __unicode__(self):
         return unicode(self.test_no)
 
+class Sponsor(models.Model):
+    test_no = models.IntegerField()
+    sponsors = models.CharField(max_length=50)
+
 
 
 class Store(models.Model):
@@ -52,6 +55,7 @@ class Store(models.Model):
     location_id = models.IntegerField()
     test_store = models.BooleanField(default=0)
     pair = models.IntegerField()
+    wave_no = models.IntegerField()
 
 
 
